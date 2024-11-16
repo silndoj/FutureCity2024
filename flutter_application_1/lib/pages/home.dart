@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/add_friend.dart';
+import 'package:flutter_application_1/pages/leaderboard.dart';
 import 'persistent_bottom_bar_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
           navigatorkey: _tab4navigatorKey,
         ),
         PersistentTabItem(
-          tab: TabPage5(),
+          tab: Leaderboard(),
           icon: Icons.leaderboard,
           title: 'Leaderboard',
           navigatorkey: _tab5navigatorKey,
@@ -66,20 +67,6 @@ class TabPage1 extends StatelessWidget {
   }
 }
 
-class TabPage2 extends StatelessWidget {
-  const TabPage2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Tasks')),
-      body: Center(
-        child: Text('Tasks Page Content'),
-      ),
-    );
-  }
-}
-
 class TabPage3 extends StatelessWidget {
   const TabPage3({Key? key}) : super(key: key);
 
@@ -103,20 +90,6 @@ class TabPage4 extends StatelessWidget {
       appBar: AppBar(title: Text('Rewards')),
       body: Center(
         child: Text('Rewards Page Content'),
-      ),
-    );
-  }
-}
-
-class TabPage5 extends StatelessWidget {
-  const TabPage5({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Leaderboard')),
-      body: Center(
-        child: Text('Leaderboard Page Content'),
       ),
     );
   }
