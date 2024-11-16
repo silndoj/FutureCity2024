@@ -44,8 +44,8 @@ class HomePage extends StatelessWidget {
           navigatorkey: _tab3navigatorKey,
         ),
       ],
-      selectedItemColor: Colors.blue, // Customize the selected item color
-      unselectedItemColor: Colors.grey, // Customize the unselected item color
+      selectedItemColor: Colors.red, // Customize the selected item color
+      unselectedItemColor: Colors.black, // Customize the unselected item color
       bottomBarBackgroundColor: Colors.white,
     );
   }
