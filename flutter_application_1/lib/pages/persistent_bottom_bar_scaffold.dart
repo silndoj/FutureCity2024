@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 
-class PersistentBottomBarScaffold extends StatefulWidget {
-  /// pass the required items for the tabs and BottomNavigationBar
-  final List<PersistentTabItem> items;
 
-  const PersistentBottomBarScaffold({Key? key, required this.items})
-      : super(key: key);
+class PersistentBottomBarScaffold extends StatefulWidget {
+  final List<PersistentTabItem> items;
+  final Color? selectedItemColor;
+  final Color? unselectedItemColor;
+  final Color? bottomBarBackgroundColor;
+
+  const PersistentBottomBarScaffold({
+    Key? key,
+    required this.items,
+    this.selectedItemColor, 
+    this.unselectedItemColor,
+    this.bottomBarBackgroundColor,
+  }) : super(key: key);
 
   @override
   _PersistentBottomBarScaffoldState createState() =>
       _PersistentBottomBarScaffoldState();
 }
+
 
 class _PersistentBottomBarScaffoldState
     extends State<PersistentBottomBarScaffold> {
@@ -50,18 +59,13 @@ class _PersistentBottomBarScaffoldState
         ),
 
         /// Define the persistent bottom bar
+        
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedTab,
           onTap: (index) {
-            /// Check if the tab that the user is pressing is currently selected
             if (index == _selectedTab) {
-              /// if you want to pop the current tab to its root then use
               widget.items[index].navigatorkey?.currentState
                   ?.popUntil((route) => route.isFirst);
-
-              /// if you want to pop the current tab to its last page
-              /// then use
-              // widget.items[index].navigatorkey?.currentState?.pop();
             } else {
               setState(() {
                 _selectedTab = index;
@@ -72,6 +76,9 @@ class _PersistentBottomBarScaffoldState
               .map((item) => BottomNavigationBarItem(
                   icon: Icon(item.icon), label: item.title))
               .toList(),
+          selectedItemColor: widget.selectedItemColor ?? Colors.blue, // Set selected item color
+          unselectedItemColor: widget.unselectedItemColor ?? Colors.grey, // Set unselected item color
+          backgroundColor: widget.bottomBarBackgroundColor ?? Colors.white, // Set background color
         ),
       ),
     );
