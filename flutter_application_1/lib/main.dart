@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/add_friend.dart';
-import 'package:flutter_application_1/pages/home.dart';
+import 'package:flutter_application_1/pages/HomePage.dart';
 void main() {
   runApp(const MyApp());
 }

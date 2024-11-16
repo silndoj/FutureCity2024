@@ -3,55 +3,6 @@ import 'package:flutter_application_1/pages/add_friend.dart';
 import 'package:flutter_application_1/pages/leaderboard.dart';
 import 'persistent_bottom_bar_scaffold.dart';
 
-class HomePage extends StatelessWidget {
-  final _tab1navigatorKey = GlobalKey<NavigatorState>();
-  final _tab2navigatorKey = GlobalKey<NavigatorState>();
-  final _tab3navigatorKey = GlobalKey<NavigatorState>();
-  final _tab4navigatorKey = GlobalKey<NavigatorState>();
-  final _tab5navigatorKey = GlobalKey<NavigatorState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return PersistentBottomBarScaffold(
-      items: [
-        PersistentTabItem(
-          tab: Home(),
-          icon: Icons.home,
-          title: 'Home',
-          navigatorkey: _tab1navigatorKey,
-        ),
-        PersistentTabItem(
-          tab: AddFriend(),
-          icon: Icons.task,
-          title: 'Tasks',
-          navigatorkey: _tab2navigatorKey,
-        ),
-        PersistentTabItem(
-          tab: TabPage4(),
-          icon: Icons.card_giftcard,
-          title: 'Rewards',
-          navigatorkey: _tab4navigatorKey,
-        ),
-        PersistentTabItem(
-          tab: Leaderboard(),
-          icon: Icons.leaderboard,
-          title: 'Leaderboard',
-          navigatorkey: _tab5navigatorKey,
-        ),
-        PersistentTabItem(
-          tab: TabPage3(),
-          icon: Icons.person,
-          title: 'Profile',
-          navigatorkey: _tab3navigatorKey,
-        ),
-      ],
-      selectedItemColor: Colors.red, // Customize the selected item color
-      unselectedItemColor: Colors.black, // Customize the unselected item color
-      bottomBarBackgroundColor: Colors.white,
-    );
-  }
-}
-
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -64,7 +15,7 @@ class Home extends StatelessWidget {
           children: [
             // Upper half: Profile, level, and currency
             Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0), // Reduced padding
               child: Stack(
                 children: [
                   Column(
@@ -72,46 +23,46 @@ class Home extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 72,
+                        radius: 60, // Reduced size of avatar
                         backgroundImage: AssetImage('assets/icons/silv_pfpi.jpeg'),
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 8), // Reduced space
                       Text(
                         'silvestri_heilbronn',
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), // Reduced font size
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 6), // Reduced space
                       Text(
                         'Level 5',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                        style: TextStyle(fontSize: 16, color: Colors.grey), // Reduced font size
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 12), // Reduced space
                       LinearProgressIndicator(
                         value: 0.6,
                         backgroundColor: Colors.grey[300],
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 6), // Reduced space
                       Text(
                         '60% to next level',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(fontSize: 14, color: Colors.grey), // Reduced font size
                       ),
                     ],
                   ),
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 6,
+                    right: 6,
                     child: Row(
                       children: [
                         Icon(
                           Icons.star,
                           color: Colors.yellow[700],
-                          size: 24,
+                          size: 20, // Reduced icon size
                         ),
                         SizedBox(width: 4),
                         Text(
                           '748',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black), // Reduced font size
                         ),
                       ],
                     ),
@@ -121,23 +72,23 @@ class Home extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(12.0), // Reduced padding
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Recent Activity',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Reduced font size
                     ),
                     ListTile(
-                      leading: Icon(Icons.emoji_events),
-                      title: Text('Completed a level 5 challenge'),
+                      leading: Icon(Icons.emoji_events, size: 20), // Reduced icon size
+                      title: Text('Completed a level 5 challenge', style: TextStyle(fontSize: 14)), // Reduced font size
                     ),
                     ListTile(
-                      leading: Icon(Icons.star),
-                      title: Text('Received 10 mobility points'),
+                      leading: Icon(Icons.star, size: 20), // Reduced icon size
+                      title: Text('Received 10 mobility points', style: TextStyle(fontSize: 14)), // Reduced font size
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 12), // Reduced space
                     Column(
                       children: [
                         ElevatedButton(
@@ -149,32 +100,32 @@ class Home extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Text('Achievements'),
+                          child: Text('Achievements', style: TextStyle(fontSize: 14)), // Reduced font size
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 40), // Reduced height
                           ),
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 8), // Reduced space
                         ElevatedButton(
                           onPressed: () {
                             _showCarbonFootprintDialog(context); // Show Carbon Footprint Dialog
                           },
-                          child: Text('Carbon Footprint'),
+                          child: Text('Carbon Footprint', style: TextStyle(fontSize: 14)), // Reduced font size
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 40), // Reduced height
                           ),
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 8), // Reduced space
                         ElevatedButton(
                           onPressed: () {
                             _showStatsDialog(context); // Show Stats Dialog
                           },
-                          child: Text('Stats'),
+                          child: Text('Stats', style: TextStyle(fontSize: 14)), // Reduced font size
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 40), // Reduced height
                           ),
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 8), // Reduced space
                         ElevatedButton(
                           onPressed: () {
                             Navigator.push(
@@ -184,9 +135,9 @@ class Home extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Text('My Trips'),
+                          child: Text('My Trips', style: TextStyle(fontSize: 14)), // Reduced font size
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 40), // Reduced height
                           ),
                         ),
                       ],
@@ -492,7 +443,7 @@ class AchievementsPage extends StatelessWidget {
           _buildAchievement(
             icon: Icons.lock,
             title: 'Sustainable Traveler',
-            description: 'Used only eco-friendly transportation for 1 month',
+            description: 'Traveled eco-friendly for 1 month',
             isUnlocked: false,
           ),
         ],
@@ -640,31 +591,3 @@ class AchievementsPage extends StatelessWidget {
       },
     );
   }
-
-class TabPage3 extends StatelessWidget {
-  const TabPage3({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Center(
-        child: Text('Profile Page Content'),
-      ),
-    );
-  }
-}
-
-class TabPage4 extends StatelessWidget {
-  const TabPage4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Rewards')),
-      body: Center(
-        child: Text('Rewards Page Content'),
-      ),
-    );
-  }
-}
