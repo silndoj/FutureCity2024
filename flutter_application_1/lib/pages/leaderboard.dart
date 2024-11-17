@@ -158,7 +158,7 @@ Widget leaderboardList(List<Map<String, String>> data) {
     {'rank': '3', 'name': 'peter_1wagner', 'score': '1350', 'image': 'assets/images/10.jpg'},
     {'rank': '4', 'name': 'sophie_fischer', 'score': '1300', 'image': 'assets/images/4.jpg'},
     {'rank': '5', 'name': 'lukas_weber', 'score': '1250', 'image': 'assets/images/5.jpg'},
-    {'rank': '6', 'name': 'emil_heilbronn', 'score': '1225', 'image': 'assets/images/emil.jpg'},
+    {'rank': '6', 'name': 'emil_42heilbronn', 'score': '1225', 'image': 'assets/images/emil.jpg'},
     {'rank': '7', 'name': 'maria_lehmann', 'score': '1200', 'image': 'assets/images/06.jpg'},
     {'rank': '8', 'name': 'paul_koch', 'score': '1150', 'image': 'assets/images/7.jpg'},
     {'rank': '9', 'name': 'laura_klein', 'score': '1100', 'image': 'assets/images/9.jpg'},
