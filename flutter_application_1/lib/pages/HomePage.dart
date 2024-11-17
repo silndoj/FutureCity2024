@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/add_friend.dart';
 import 'package:flutter_application_1/pages/leaderboard.dart';
 import 'package:flutter_application_1/pages/home.dart';
+import 'package:flutter_application_1/pages/tasks.dart';
 import 'persistent_bottom_bar_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
           navigatorkey: _tab1navigatorKey,
         ),
         PersistentTabItem(
-          tab: AddFriend(),
+          tab: TasksPage(),
           icon: Icons.task,
           title: 'Tasks',
           navigatorkey: _tab2navigatorKey,
