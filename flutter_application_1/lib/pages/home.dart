@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/add_friend.dart';
 import 'package:flutter_application_1/pages/leaderboard.dart';
@@ -6,135 +7,133 @@ import 'persistent_bottom_bar_scaffold.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Upper half: Profile, level, and currency
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0), // Reduced padding
-              child: Stack(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.grey[200],
+    body: SafeArea(
+      child: Column(
+        children: [
+          // Upper half: Profile, level, and currency
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0), // Reduced padding
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 60, // Reduced size of avatar
+                      backgroundImage: AssetImage('assets/icons/silv_pfpi.jpeg'),
+                    ),
+                    SizedBox(height: 12), // Increased space for balance
+                    Text(
+                      'silvestri_42heilbronn',
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Level 5',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                    SizedBox(height: 16), // Increased space
+                    LinearProgressIndicator(
+                      value: 0.6,
+                      backgroundColor: Colors.grey[300],
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
+                    SizedBox(height: 8), // Increased space
+                    Text(
+                      '60% to next level',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0), // Reduced padding
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    'Recent Activity',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.emoji_events, size: 20), // Reduced icon size
+                    title: Text('Completed a level 5 challenge', style: TextStyle(fontSize: 14)),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.star, size: 20), // Reduced icon size
+                    title: Text('Received 10 mobility points', style: TextStyle(fontSize: 14)),
+                  ),
+                  SizedBox(height: 16), // Increased space
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 60, // Reduced size of avatar
-                        backgroundImage: AssetImage('assets/icons/silv_pfpi.jpeg'),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AchievementsPage(),
+                            ),
+                          );
+                        },
+                        child: Text('Achievements', style: TextStyle(fontSize: 14)),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 45), // Adjusted button height
+                        ),
                       ),
-                      SizedBox(height: 8), // Reduced space
-                      Text(
-                        'silvestri_42heilbronn',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), // Reduced font size
+                      SizedBox(height: 12), // Increased space between buttons
+                      ElevatedButton(
+                        onPressed: () {
+                          _showCarbonFootprintDialog(context); // Show Carbon Footprint Dialog
+                        },
+                        child: Text('Carbon Footprint', style: TextStyle(fontSize: 14)),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 45), // Adjusted button height
+                        ),
                       ),
-                      SizedBox(height: 6), // Reduced space
-                      Text(
-                        'Level 5',
-                        style: TextStyle(fontSize: 16, color: Colors.grey), // Reduced font size
+                      SizedBox(height: 12),
+                      ElevatedButton(
+                        onPressed: () {
+                          _showStatsDialog(context); // Show Stats Dialog
+                        },
+                        child: Text('Stats', style: TextStyle(fontSize: 14)),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 45), // Adjusted button height
+                        ),
                       ),
-                      SizedBox(height: 12), // Reduced space
-                      LinearProgressIndicator(
-                        value: 0.6,
-                        backgroundColor: Colors.grey[300],
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                      ),
-                      SizedBox(height: 6), // Reduced space
-                      Text(
-                        '60% to next level',
-                        style: TextStyle(fontSize: 14, color: Colors.grey), // Reduced font size
+                      SizedBox(height: 12),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyTripsPage(),
+                            ),
+                          );
+                        },
+                        child: Text('My Trips', style: TextStyle(fontSize: 14)),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 45), // Adjusted button height
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0), // Reduced padding
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Recent Activity',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Reduced font size
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.emoji_events, size: 20), // Reduced icon size
-                      title: Text('Completed a level 5 challenge', style: TextStyle(fontSize: 14)), // Reduced font size
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.star, size: 20), // Reduced icon size
-                      title: Text('Received 10 mobility points', style: TextStyle(fontSize: 14)), // Reduced font size
-                    ),
-                    SizedBox(height: 12), // Reduced space
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AchievementsPage(),
-                              ),
-                            );
-                          },
-                          child: Text('Achievements', style: TextStyle(fontSize: 14)), // Reduced font size
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40), // Reduced height
-                          ),
-                        ),
-                        SizedBox(height: 8), // Reduced space
-                        ElevatedButton(
-                          onPressed: () {
-                            _showCarbonFootprintDialog(context); // Show Carbon Footprint Dialog
-                          },
-                          child: Text('Carbon Footprint', style: TextStyle(fontSize: 14)), // Reduced font size
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40), // Reduced height
-                          ),
-                        ),
-                        SizedBox(height: 8), // Reduced space
-                        ElevatedButton(
-                          onPressed: () {
-                            _showStatsDialog(context); // Show Stats Dialog
-                          },
-                          child: Text('Stats', style: TextStyle(fontSize: 14)), // Reduced font size
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40), // Reduced height
-                          ),
-                        ),
-                        SizedBox(height: 8), // Reduced space
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyTripsPage(),
-                              ),
-                            );
-                          },
-                          child: Text('My Trips', style: TextStyle(fontSize: 14)), // Reduced font size
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40), // Reduced height
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
-  // Function to show the Carbon Footprint dialog
+    ),
+  );
+}  // Function to show the Carbon Footprint dialog
   void _showCarbonFootprintDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -474,6 +473,102 @@ class AchievementsPage extends StatelessWidget {
 }
 
 
+// Function to show the Achievement dialog
+void _showAchievementDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Your Achievements'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Example of unlocked achievement
+            _buildAchievement(
+              icon: Icons.star,
+              title: 'Eco Warrior',
+              description: 'You have reduced your carbon footprint by 100 kg CO₂.',
+              isUnlocked: true,
+            ),
+            SizedBox(height: 16),
+            // Example of locked achievement
+            _buildAchievement(
+              icon: Icons.lock,
+              title: 'Green Champion',
+              description: 'Complete 10 eco-friendly trips to unlock this achievement.',
+              isUnlocked: false,
+            ),
+            SizedBox(height: 16),
+            // Example of another unlocked achievement
+            _buildAchievement(
+              icon: Icons.directions_bike,
+              title: 'Bicycle Master',
+              description: 'Ride 500 km using eco-friendly transport.',
+              isUnlocked: true,
+            ),
+            SizedBox(height: 16),
+            // Example of locked achievement
+            _buildAchievement(
+              icon: Icons.lock,
+              title: 'Walking Hero',
+              description: 'Walk a total of 200 km to unlock this achievement.',
+              isUnlocked: false,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+            },
+            child: Text('Close'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+// Custom function to build an individual achievement
+Widget _buildAchievement({
+  required IconData icon,
+  required String title,
+  required String description,
+  required bool isUnlocked,
+}) {
+  return Row(
+    children: [
+      Icon(
+        icon,
+        color: isUnlocked ? Colors.green : Colors.grey,
+        size: 40,
+      ),
+      SizedBox(width: 16),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: isUnlocked ? Colors.black : Colors.grey,
+            ),
+          ),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 14,
+              color: isUnlocked ? Colors.black : Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
   // Function to show the Carbon Footprint dialog
   void _showCarbonFootprintDialog(BuildContext context) {
     showDialog(
@@ -573,3 +668,4 @@ class AchievementsPage extends StatelessWidget {
       },
     );
   }
+

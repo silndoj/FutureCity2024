@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class Leaderboard extends StatefulWidget {
@@ -9,11 +10,16 @@ class Leaderboard extends StatefulWidget {
 
 class _LeaderboardState extends State<Leaderboard> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late Map<String, List<Map<String, dynamic>>> leaderboardData;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this); // Two tabs: City and Friends
+    leaderboardData = {
+      'City Leaderboard': _getCityLeaderboardData(),
+      'Friends Leaderboard': _getFriendsLeaderboardData(),
+    };
   }
 
   @override
@@ -25,20 +31,21 @@ class _LeaderboardState extends State<Leaderboard> with SingleTickerProviderStat
           // Tabs for switching between leaderboards
           TabBar(
             controller: _tabController,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blueAccent,
+            labelColor: Colors.red, // Selected category color: Red
+            unselectedLabelColor: Colors.grey, // Unselected category color: Grey
+            indicatorColor: Colors.red, // Indicator color: Red
             tabs: const [
               Tab(text: 'City Leaderboard'), // First Tab
               Tab(text: 'Friends Leaderboard'), // Second Tab
             ],
           ),
+          // TabBarView for content
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                leaderboardList(cityLeaderboardData), // City Leaderboard
-                leaderboardList(friendsLeaderboardData), // Friends Leaderboard
+                leaderboardListWidget('City Leaderboard'), // City Leaderboard
+                leaderboardListWidget('Friends Leaderboard'), // Friends Leaderboard
               ],
             ),
           ),
@@ -73,85 +80,114 @@ class _LeaderboardState extends State<Leaderboard> with SingleTickerProviderStat
     );
   }
 
-Widget leaderboardList(List<Map<String, String>> data) {
-  return ListView.builder(
-    itemCount: data.length,
-    itemBuilder: (context, index) {
-      final player = data[index];
-      
-      // Colors for the top three places
-      final placeColors = [
-        Colors.amber.shade300, // Gold for 1st place
-        Colors.grey.shade300, // Silver for 2nd place
-        Colors.brown.shade300, // Bronze for 3rd place
-      ];
+  Widget leaderboardListWidget(String category) {
+    final players = leaderboardData[category]!;
+    return ListView.builder(
+      itemCount: players.length,
+      itemBuilder: (context, index) {
+        final player = players[index];
+        return leaderboardCard(
+          rank: player['rank'],
+          name: player['name'],
+          score: player['score'],
+          image: player['image'],
+          isTopThree: index < 3,
+          highlightColor: _getHighlightColor(index),
+        );
+      },
+    );
+  }
 
-      return Container(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        decoration: BoxDecoration(
-          color: index < 3 ? placeColors[index] : Colors.white, // Highlight top 3
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 5,
-              offset: const Offset(0, 2),
+
+Widget leaderboardCard({
+  required String rank,
+  required String name,
+  required String score,
+  required String image,
+  required bool isTopThree,
+  required Color highlightColor,
+}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    child: Container(
+      decoration: BoxDecoration(
+        color: isTopThree ? highlightColor : Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 20,
+          backgroundImage: AssetImage(image),
+        ),
+        title: Text(
+          name,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        subtitle: Text(
+          'Points: $score',
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black54,
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (rank == '1')
+              Icon(Icons.emoji_events, color: Colors.amber.shade600, size: 18), // Gold medal
+            if (rank == '2')
+              Icon(Icons.emoji_events, color: Colors.grey.shade400, size: 18), // Silver medal
+            if (rank == '3')
+              Icon(Icons.emoji_events, color: Colors.brown.shade400, size: 18), // Bronze medal
+            if (int.tryParse(rank) == null || int.parse(rank) > 3) ...[
+              Icon(
+                Icons.star,
+                color: isTopThree ? highlightColor : Colors.black26,
+                size: 20,
+              ),
+              const SizedBox(width: 5),
+            ],
+            Text(
+              rank,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ],
         ),
-        child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          leading: CircleAvatar(
-            radius: 20,
-            backgroundImage: AssetImage(player['image'] ?? 'assets/images/default_profile.png'), // Image Path
-          ),
-          title: Text(
-            player['name'] ?? '',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: index < 3 ? Colors.black : Colors.black87, // Darker text for contrast
-            ),
-          ),
-          subtitle: Text(
-            'Points: ${player['score']}',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade700,
-            ),
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.star,
-                color: index == 0
-                    ? Colors.amber // Gold star for 1st place
-                    : index == 1
-                        ? Colors.grey // Silver star for 2nd place
-                        : index == 2
-                            ? Colors.brown // Bronze star for 3rd place
-                            : Colors.black26, // Default for others
-                size: 20,
-              ),
-              const SizedBox(width: 5), // Space between the star and the rank
-              Text(
-                player['rank'] ?? '',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
+      ),
+    ),
   );
 }
-  // Sample data for City Leaderboard
-  final List<Map<String, String>> cityLeaderboardData = const [
+
+  Color _getHighlightColor(int index) {
+    switch (index) {
+      case 0:
+        return Colors.amber.shade300; // Gold for 1st
+      case 1:
+        return Colors.grey.shade300; // Silver for 2nd
+      case 2:
+        return Colors.brown.shade300; // Bronze for 3rd
+      default:
+        return Colors.white; // No highlight for others
+    }
+  }
+
+  // City Leaderboard Data
+  List<Map<String, dynamic>> _getCityLeaderboardData() => const [
     {'rank': '1', 'name': 'hans_müller', 'score': '1450', 'image': 'assets/images/1.jpg'},
     {'rank': '2', 'name': 'silvestri_42heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
     {'rank': '3', 'name': 'peter_1wagner', 'score': '1350', 'image': 'assets/images/10.jpg'},
@@ -166,8 +202,8 @@ Widget leaderboardList(List<Map<String, String>> data) {
     {'rank': '12', 'name': 'anna_schmidt23', 'score': '800', 'image': 'assets/images/02.jpg'},
   ];
 
-  // Sample`` data for Friends Leaderboard
-  final List<Map<String, String>> friendsLeaderboardData = const [
+  // Friends Leaderboard Data
+  List<Map<String, dynamic>> _getFriendsLeaderboardData() => const [
     {'rank': '1', 'name': 'silvestri_42heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
     {'rank': '2', 'name': 'emil_42heilbronn', 'score': '1225', 'image': 'assets/images/emil.jpg'},
   ];
