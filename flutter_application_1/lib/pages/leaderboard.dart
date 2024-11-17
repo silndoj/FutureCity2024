@@ -154,7 +154,7 @@ Widget leaderboardList(List<Map<String, String>> data) {
   // Sample data for City Leaderboard
   final List<Map<String, String>> cityLeaderboardData = const [
     {'rank': '1', 'name': 'hans_müller', 'score': '1450', 'image': 'assets/images/1.jpg'},
-    {'rank': '2', 'name': 'silvestri_heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
+    {'rank': '2', 'name': 'silvestri_42heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
     {'rank': '3', 'name': 'peter_1wagner', 'score': '1350', 'image': 'assets/images/10.jpg'},
     {'rank': '4', 'name': 'sophie_fischer', 'score': '1300', 'image': 'assets/images/4.jpg'},
     {'rank': '5', 'name': 'lukas_weber', 'score': '1250', 'image': 'assets/images/5.jpg'},
@@ -169,8 +169,8 @@ Widget leaderboardList(List<Map<String, String>> data) {
 
   // Sample`` data for Friends Leaderboard
   final List<Map<String, String>> friendsLeaderboardData = const [
-    {'rank': '1', 'name': 'silvestri_heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
-    {'rank': '2', 'name': 'emil_heilbronn', 'score': '1225', 'image': 'assets/images/emil.jpg'},
+    {'rank': '1', 'name': 'silvestri_42heilbronn', 'score': '1400', 'image': 'assets/images/silvi.jpg'},
+    {'rank': '2', 'name': 'emil_42heilbronn', 'score': '1225', 'image': 'assets/images/emil.jpg'},
   ];
 }
 

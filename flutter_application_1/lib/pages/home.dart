@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
                       ),
                       SizedBox(height: 8), // Reduced space
                       Text(
-                        'silvestri_heilbronn',
+                        'silvestri_42heilbronn',
                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), // Reduced font size
                       ),
                       SizedBox(height: 6), // Reduced space
@@ -48,24 +48,6 @@ class Home extends StatelessWidget {
                         style: TextStyle(fontSize: 14, color: Colors.grey), // Reduced font size
                       ),
                     ],
-                  ),
-                  Positioned(
-                    top: 6,
-                    right: 6,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow[700],
-                          size: 20, // Reduced icon size
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          '748',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black), // Reduced font size
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),
