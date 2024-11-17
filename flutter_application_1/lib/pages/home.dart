@@ -1,139 +1,178 @@
+import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/add_friend.dart';
-import 'package:flutter_application_1/pages/leaderboard.dart';
-import 'persistent_bottom_bar_scaffold.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.grey[200],
-    body: SafeArea(
-      child: Column(
-        children: [
-          // Upper half: Profile, level, and currency
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0), // Reduced padding
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.white, Colors.grey],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            children: [
+              // Upper half: Profile, level, and currency
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0), // Reduced padding
+                child: Stack(
                   children: [
-                    CircleAvatar(
-                      radius: 60, // Reduced size of avatar
-                      backgroundImage: AssetImage('assets/icons/silv_pfpi.jpeg'),
-                    ),
-                    SizedBox(height: 12), // Increased space for balance
-                    Text(
-                      'silvestri_42heilbronn',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      'Level 5',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                    SizedBox(height: 16), // Increased space
-                    LinearProgressIndicator(
-                      value: 0.6,
-                      backgroundColor: Colors.grey[300],
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                    ),
-                    SizedBox(height: 8), // Increased space
-                    Text(
-                      '60% to next level',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 60, // Reduced size of avatar
+                          backgroundImage: AssetImage('assets/icons/silv_pfpi.jpeg'),
+                        ),
+                        SizedBox(height: 8), // Reduced space
+                        Text(
+                          'silvestri_42heilbronn',
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), // Reduced font size
+                        ),
+                        SizedBox(height: 6), // Reduced space
+                        Text(
+                          'Level 5',
+                          style: TextStyle(fontSize: 16, color: Colors.black), // Reduced font size
+                        ),
+                        SizedBox(height: 12), // Reduced space
+                        LinearProgressIndicator(
+                          value: 0.6,
+                          backgroundColor: Colors.grey[300],
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                        ),
+                        SizedBox(height: 6), // Reduced space
+                        Text(
+                          '60% to next level',
+                          style: TextStyle(fontSize: 14, color: Colors.black), // Reduced font size
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0), // Reduced padding
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Recent Activity',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.emoji_events, size: 20), // Reduced icon size
-                    title: Text('Completed a level 5 challenge', style: TextStyle(fontSize: 14)),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.star, size: 20), // Reduced icon size
-                    title: Text('Received 10 mobility points', style: TextStyle(fontSize: 14)),
-                  ),
-                  SizedBox(height: 16), // Increased space
-                  Column(
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0), // Reduced padding
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AchievementsPage(),
-                            ),
-                          );
-                        },
-                        child: Text('Achievements', style: TextStyle(fontSize: 14)),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 45), // Adjusted button height
-                        ),
+                      Text(
+                        'Recent Activity',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Reduced font size
                       ),
-                      SizedBox(height: 12), // Increased space between buttons
-                      ElevatedButton(
-                        onPressed: () {
-                          _showCarbonFootprintDialog(context); // Show Carbon Footprint Dialog
-                        },
-                        child: Text('Carbon Footprint', style: TextStyle(fontSize: 14)),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 45), // Adjusted button height
-                        ),
+                      ListTile(
+                        leading: Icon(Icons.emoji_events, size: 20), // Reduced icon size
+                        title: Text('Completed a level 5 challenge', style: TextStyle(fontSize: 14)), // Reduced font size
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.star, size: 20), // Reduced icon size
+                        title: Text('Received 10 mobility points', style: TextStyle(fontSize: 14)), // Reduced font size
+                      ),
+                      SizedBox(height: 12), // Reduced space
+                      // 4 boxes (2 rows of 2 boxes)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildBox(
+                            context,
+                            title: 'Achievements',
+                            icon: Icons.emoji_events,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AchievementsPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          _buildBox(
+                            context,
+                            title: 'Carbon Footprint',
+                            icon: Icons.eco,
+                            onPressed: () {
+                              _showCarbonFootprintDialog(context);
+                            },
+                          ),
+                        ],
                       ),
                       SizedBox(height: 12),
-                      ElevatedButton(
-                        onPressed: () {
-                          _showStatsDialog(context); // Show Stats Dialog
-                        },
-                        child: Text('Stats', style: TextStyle(fontSize: 14)),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 45), // Adjusted button height
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildBox(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => MyTripsPage(),
-                            ),
-                          );
-                        },
-                        child: Text('My Trips', style: TextStyle(fontSize: 14)),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 45), // Adjusted button height
-                        ),
+                            title: 'Stats',
+                            icon: Icons.bar_chart,
+                            onPressed: () {
+                              _showStatsDialog(context);
+                            },
+                          ),
+                          _buildBox(
+                            context,
+                            title: 'My Trips',
+                            icon: Icons.directions_bike,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyTripsPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
-    ),
-  );
-}  // Function to show the Carbon Footprint dialog
+    );
+  }
+
+  // Helper method to build each box
+  Widget _buildBox(BuildContext context, {required String title, required IconData icon, required VoidCallback onPressed}) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: (MediaQuery.of(context).size.width - 36) / 2, // Divide the screen into two equal boxes
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: Colors.red),
+            SizedBox(height: 8),
+            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Function to show the Carbon Footprint dialog
   void _showCarbonFootprintDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -270,28 +309,13 @@ class MyTripsPage extends StatelessWidget {
             transport: 'Walking',
             distance: 1.2,
             city: 'Heilbronn',
-            destination: 'Kilianskirche',
-          ),
-          SizedBox(height: 12),
-          _buildTrip(
-            transport: 'Scooter',
-            distance: 3.5,
-            city: 'Heilbronn',
-            destination: 'Stadtpark',
-          ),
-          SizedBox(height: 12),
-          _buildTrip(
-            transport: 'Bike',
-            distance: 7.0,
-            city: 'Heilbronn',
-            destination: 'Neckar River',
+            destination: 'University',
           ),
         ],
       ),
     );
   }
 
-  // Helper widget to build each trip
   Widget _buildTrip({
     required String transport,
     required double distance,
@@ -301,63 +325,14 @@ class MyTripsPage extends StatelessWidget {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              _getTransportIcon(transport),
-              size: 40,
-              color: Colors.blue,
-            ),
-            SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '$transport to $destination',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'City: $city',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                Text(
-                  'Distance: $distance km',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ],
-            ),
-          ],
-        ),
+      child: ListTile(
+        title: Text('$transport - $distance km'),
+        subtitle: Text('City: $city, Destination: $destination'),
+        trailing: Icon(Icons.arrow_forward),
       ),
     );
-  }
-
-  // Helper function to return the right transport icon
-  IconData _getTransportIcon(String transport) {
-    switch (transport) {
-      case 'Bus':
-        return Icons.directions_bus;
-      case 'Tram':
-        return Icons.directions_subway;
-      case 'E-Bike':
-        return Icons.electric_bike;
-      case 'Walking':
-        return Icons.directions_walk;
-      case 'Scooter':
-        return Icons.motorcycle;
-      case 'Bike':
-        return Icons.directions_bike;
-      default:
-        return Icons.directions_walk;
-    }
   }
 }
 
@@ -473,102 +448,6 @@ class AchievementsPage extends StatelessWidget {
 }
 
 
-// Function to show the Achievement dialog
-void _showAchievementDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Your Achievements'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Example of unlocked achievement
-            _buildAchievement(
-              icon: Icons.star,
-              title: 'Eco Warrior',
-              description: 'You have reduced your carbon footprint by 100 kg CO₂.',
-              isUnlocked: true,
-            ),
-            SizedBox(height: 16),
-            // Example of locked achievement
-            _buildAchievement(
-              icon: Icons.lock,
-              title: 'Green Champion',
-              description: 'Complete 10 eco-friendly trips to unlock this achievement.',
-              isUnlocked: false,
-            ),
-            SizedBox(height: 16),
-            // Example of another unlocked achievement
-            _buildAchievement(
-              icon: Icons.directions_bike,
-              title: 'Bicycle Master',
-              description: 'Ride 500 km using eco-friendly transport.',
-              isUnlocked: true,
-            ),
-            SizedBox(height: 16),
-            // Example of locked achievement
-            _buildAchievement(
-              icon: Icons.lock,
-              title: 'Walking Hero',
-              description: 'Walk a total of 200 km to unlock this achievement.',
-              isUnlocked: false,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-            },
-            child: Text('Close'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
-// Custom function to build an individual achievement
-Widget _buildAchievement({
-  required IconData icon,
-  required String title,
-  required String description,
-  required bool isUnlocked,
-}) {
-  return Row(
-    children: [
-      Icon(
-        icon,
-        color: isUnlocked ? Colors.green : Colors.grey,
-        size: 40,
-      ),
-      SizedBox(width: 16),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: isUnlocked ? Colors.black : Colors.grey,
-            ),
-          ),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 14,
-              color: isUnlocked ? Colors.black : Colors.grey,
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
   // Function to show the Carbon Footprint dialog
   void _showCarbonFootprintDialog(BuildContext context) {
     showDialog(
@@ -668,4 +547,3 @@ Widget _buildAchievement({
       },
     );
   }
-
