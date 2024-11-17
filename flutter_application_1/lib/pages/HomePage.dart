@@ -3,6 +3,7 @@ import 'package:flutter_application_1/pages/leaderboard.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/tasks.dart';
 import 'package:flutter_application_1/pages/rewards.dart';
+import 'package:flutter_application_1/pages/profile.dart';
 import 'persistent_bottom_bar_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
           navigatorkey: _tab5navigatorKey,
         ),
         PersistentTabItem(
-          tab: TabPage3(),
+          tab: Profile(),
           icon: Icons.person,
           title: 'Profile',
           navigatorkey: _tab3navigatorKey,
@@ -50,36 +51,6 @@ class HomePage extends StatelessWidget {
       selectedItemColor: Colors.red, // Customize the selected item color
       unselectedItemColor: Colors.black, // Customize the unselected item color
       bottomBarBackgroundColor: Colors.white,
-    );
-  }
-}
-
-
-
-class TabPage3 extends StatelessWidget {
-  const TabPage3({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Center(
-        child: Text('Profile Page Content'),
-      ),
-    );
-  }
-}
-
-class TabPage4 extends StatelessWidget {
-  const TabPage4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Rewards')),
-      body: Center(
-        child: Text('Rewards Page Content'),
-      ),
     );
   }
 }
