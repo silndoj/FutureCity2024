@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/add_friend.dart';
 import 'package:flutter_application_1/pages/leaderboard.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/tasks.dart';
+import 'package:flutter_application_1/pages/rewards.dart';
 import 'persistent_bottom_bar_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
           navigatorkey: _tab2navigatorKey,
         ),
         PersistentTabItem(
-          tab: TabPage4(),
+          tab: Rewards(),
           icon: Icons.card_giftcard,
           title: 'Rewards',
           navigatorkey: _tab4navigatorKey,
